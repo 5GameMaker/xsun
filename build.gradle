@@ -1,0 +1,29 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'net.buj'
+version = '1.0-SNAPSHOT'
+
+jar {
+    archiveFileName = "xsun.jar"
+}
+
+javadoc {}
+
+tasks.register("sourcesJar", Jar) {
+    dependsOn classes
+    archiveFileName = "xsun-sources.jar"
+    from sourceSets.main.allSource
+}
+
+tasks.register("javadocJar", Jar) {
+    dependsOn javadoc
+    archiveFileName = "xsun-javadoc.jar"
+    from javadoc.destinationDir
+}
+
+tasks.named("build") {
+    dependsOn javadocJar
+    dependsOn sourcesJar
+}
